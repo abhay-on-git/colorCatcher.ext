@@ -11,6 +11,7 @@ body{
     background-color: rgb(144, 63, 220);
     color: white;
     outline: none;
+    cursor: pointer;
     border-radius: 5px;
     border: none;
 }
