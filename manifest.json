@@ -4,11 +4,8 @@
     "version":"1.0",
     "manifest_version":3,
     "host_permissions":["<all_urls>"],
-    "background":{
-        "service_worker":"background.js"
-    },
     "permissions":[
-      "activeTab","scripting"
+      "activeTab","scripting","tabs"
     ],
     "action":{
       "default_popup":"popup.html"

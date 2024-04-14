@@ -1,17 +1,63 @@
-body{
-    width: 300px;
-    height: 350px;
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family:gilroy,serif;
+}
+html,body{
+width:100%;
+height:100%;
+width: 225px;
+}
+h2{
+    margin: 5px 0px;
 }
 .wrapper{
     width: 100%;
     height: 100%;
+    height: 300px;
+    display: flex;
+    padding: 5px 10px;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    /* background-color: bisque; */
+}
+.picker{
+    width: 100%;
+    height: 40px;
+    border-top:  1px solid rgba(130, 129, 129, 0.347);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.slectedColor{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
 }
 .changeColorBtn{
-    padding: 6px 12px;
+    padding: 6px 8px;
     background-color: rgb(144, 63, 220);
     color: white;
     outline: none;
     cursor: pointer;
     border-radius: 5px;
     border: none;
+}
+.colorGrid{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 0.5px solid rgb(107, 107, 107);
+    /* background-color: #939384; */
+}
+.colorValue{
+    font-size: 12.5px;
+    font-weight: 100;
+    display: inline-block;
 }
