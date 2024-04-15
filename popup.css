@@ -6,7 +6,7 @@ font-family:gilroy,serif;
 }
 html,body{
 width:100%;
-height:100%;
+min-height:100%;
 width: 225px;
 }
 h2{
@@ -15,7 +15,6 @@ h2{
 .wrapper{
     width: 100%;
     height: 100%;
-    height: 300px;
     display: flex;
     padding: 5px 10px;
     flex-direction: column;
@@ -25,21 +24,23 @@ h2{
 }
 .picker{
     width: 100%;
-    height: 40px;
+    height: auto;
+    padding: 4px 0px;
     border-top:  1px solid rgba(130, 129, 129, 0.347);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 5px;
 }
 .slectedColor{
-    width: 50%;
+    width: 45%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
 }
-.changeColorBtn{
+.btn{
     padding: 6px 8px;
     background-color: rgb(144, 63, 220);
     color: white;
@@ -60,4 +61,39 @@ h2{
     font-size: 12.5px;
     font-weight: 100;
     display: inline-block;
+}
+
+
+.allWebColors{
+    width: 100%;
+    padding: 4px 0px;
+    border-top:  1px solid rgba(130, 129, 129, 0.347);
+    margin-bottom: 5px;  
+}
+.allWebColorsIn{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: red;
+}
+.scrapedColorsDiv{
+    width: 100%;
+    height: auto;
+    /* height: 50px; */
+    padding: 4px 0px;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    gap: 5px;
+    align-items: center;
+    background-color: red;
+}
+.scrapedDivChild{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 0.5px solid rgb(107, 107, 107);
 }

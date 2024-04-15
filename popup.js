@@ -11,8 +11,11 @@ window.addEventListener('load',()=>{
 })
 
 btn.addEventListener("click", async () => {
+  // alert("Pick colors from anywhere including outside the browser... ")
   try {
+    document.querySelector('body').style.height = "0px";
     const color = await colorPicker();
+    // window.close();
     localStorage.setItem("lastColor", color);
     copyToClipboard(color);
     colorGrid.style.backgroundColor = color;
@@ -23,6 +26,7 @@ btn.addEventListener("click", async () => {
   }
 });
 
+// Color Picking Code
 
 async function colorPicker() {
   console.log("inside colorPicker");
@@ -41,3 +45,23 @@ async function colorPicker() {
 async function copyToClipboard(text) {
  await navigator.clipboard.writeText(text);
 }
+
+
+// Scraping Color code
+
+
+
+
+async function  scrapeAllColors (){
+  const colors = [];
+  const allElements = Array.from(document.querySelectorAll("*"));
+  console.log("Number of elements found:", allElements.length);
+  allElements.forEach((element)=>{
+  const style = window.getComputedStyle(element);
+  console.log("Computed styles for element:", style);
+  console.log("Color:", style.color, "Background Color:", style.backgroundColor);
+  colors.push(style.color);
+  colors.push(style.backgroundColor);
+});
+}
+scrapeAllColors();
