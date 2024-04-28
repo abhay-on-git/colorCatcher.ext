@@ -1,6 +1,8 @@
 const btn = document.querySelector(".changeColorBtn");
 const colorGrid = document.querySelector(".colorGrid");
 const colorValue = document.querySelector(".colorValue");
+const scrapeColorBtn = document.querySelector(".scrapeColorBtn");
+const scrapedColorsDiv = document.querySelector(".scrapedColorsDiv")
 
 window.addEventListener('load',()=>{
   const lastColor = localStorage.getItem("lastColor")
@@ -11,11 +13,8 @@ window.addEventListener('load',()=>{
 })
 
 btn.addEventListener("click", async () => {
-  // alert("Pick colors from anywhere including outside the browser... ")
   try {
-    document.querySelector('body').style.height = "0px";
     const color = await colorPicker();
-    // window.close();
     localStorage.setItem("lastColor", color);
     copyToClipboard(color);
     colorGrid.style.backgroundColor = color;
@@ -29,12 +28,12 @@ btn.addEventListener("click", async () => {
 // Color Picking Code
 
 async function colorPicker() {
-  console.log("inside colorPicker");
+  // console.log("inside colorPicker");
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     const eyeDropper = new EyeDropper();
     const { sRGBHex } = await eyeDropper.open();
-    console.log("After await", sRGBHex);
+    // console.log("After await", sRGBHex);
     return sRGBHex;
   } catch (err) {
     console.error(err);
@@ -49,19 +48,48 @@ async function copyToClipboard(text) {
 
 // Scraping Color code
 
+let isClickeble = true;
+scrapeColorBtn.addEventListener('click',async ()=>{
+  console.log("Inside scrape colors ")
+  const colors = isClickeble && await scrapeAllColors();
+  console.log(colors)
+  isClickeble = false;
+  if(colors.length != 0){
+    for(let color of colors){
+      const scrapedDivChild = document.createElement( 'div' );
+      scrapedDivChild.className = 'scrapedDivChild';
+      scrapedDivChild.style.backgroundColor = color;
+      scrapedColorsDiv.appendChild(scrapedDivChild);
+    }
+  }
+})
 
 
+async function scrapeAllColors() {
+  try {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      
+      // Inject a content script into the active tab
+      const colors = await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          func: () => {
+              const colorsSet = new Set();
+              const allElements = Array.from(document.querySelectorAll("*"));
+              allElements.forEach((element) => {
+                  const style = window.getComputedStyle(element);
+                  colorsSet.add(style.color);
+                  colorsSet.add(style.backgroundColor);
+              });
+              return Array.from(colorsSet); // Convert set to array for returning
+          }
+      });
+      
+      // Retrieve the result from the content script execution
+      const colorsResult = colors[0].result;
+      return colorsResult;
 
-async function  scrapeAllColors (){
-  const colors = [];
-  const allElements = Array.from(document.querySelectorAll("*"));
-  console.log("Number of elements found:", allElements.length);
-  allElements.forEach((element)=>{
-  const style = window.getComputedStyle(element);
-  console.log("Computed styles for element:", style);
-  console.log("Color:", style.color, "Background Color:", style.backgroundColor);
-  colors.push(style.color);
-  colors.push(style.backgroundColor);
-});
+  } catch (err) {
+      console.error("Error scraping colors:", err);
+      throw err;
+  }
 }
-scrapeAllColors();
