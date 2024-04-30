@@ -48,21 +48,33 @@ async function copyToClipboard(text) {
 
 // Scraping Color code
 
-let isClickeble = true;
-scrapeColorBtn.addEventListener('click',async ()=>{
-  console.log("Inside scrape colors ")
-  const colors = isClickeble && await scrapeAllColors();
-  console.log(colors)
-  isClickeble = false;
-  if(colors.length != 0){
-    for(let color of colors){
-      const scrapedDivChild = document.createElement( 'div' );
-      scrapedDivChild.className = 'scrapedDivChild';
-      scrapedDivChild.style.backgroundColor = color;
-      scrapedColorsDiv.appendChild(scrapedDivChild);
+let isScraped = false;
+
+scrapeColorBtn.addEventListener('click', async () => {
+  if (isScraped) {
+    // Remove all scraped div children
+    while (scrapedColorsDiv.firstChild) {
+      scrapedColorsDiv.removeChild(scrapedColorsDiv.firstChild);
     }
+    scrapedColorsDiv.style.height = 'initial'; 
+    isScraped = false;
+  } else {
+    // Scrape colors and display them
+    const colors = await scrapeAllColors();
+    console.log(colors);
+    
+    if (colors.length !== 0) {
+      for (let color of colors) {
+        const scrapedDivChild = document.createElement('div');
+        scrapedDivChild.className = 'scrapedDivChild';
+        scrapedDivChild.style.backgroundColor = color;
+        scrapedColorsDiv.appendChild(scrapedDivChild);
+      }
+    }
+    isScraped = true;
   }
-})
+});
+
 
 
 async function scrapeAllColors() {
@@ -97,8 +109,16 @@ async function scrapeAllColors() {
 // Gradient generator code 
 const generateGradientBtn = document.querySelector('.generateGradientBtn');
 const wrapper = document.querySelector('.wrapper');
+
+let isOpened = false;
 generateGradientBtn.addEventListener( "click" , ()=>{
-  wrapper.style.height = 'auto';
+  if (!isOpened){
+    wrapper.style.height = 'auto';
+    isOpened = true;
+  }else{
+    wrapper.style.height = '0px'; 
+    isOpened = false; 
+  }
 } );
 
 const gradientBox = document.querySelector(".gradient-box");
