@@ -43,6 +43,8 @@ h2{
 }
 .btn{
     padding: 6px 8px;
+    width: 90px;
+    font-size: 0.9rem;
     background-color: rgb(144, 63, 220);
     color: white;
     outline: none;
