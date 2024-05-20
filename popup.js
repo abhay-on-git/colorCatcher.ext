@@ -101,7 +101,7 @@ async function scrapeAllColors() {
       return colorsResult;
 
   } catch (err) {
-      console.error("Error scraping colors:", err);
+      // console.error("Error scraping colors:", err);
       throw err;
   }
 }
