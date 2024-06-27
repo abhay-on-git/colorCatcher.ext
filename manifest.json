@@ -1,7 +1,7 @@
 {
     "name":"ColorCatcher",
     "description":"Pick and Extract webpage colors, then create beautiful gradients seamlessly with our Chrome extension!",
-    "version":"1.0",
+    "version":"1.0.1",
     "manifest_version":3,
     "host_permissions":["<all_urls>"],
     "permissions":[
