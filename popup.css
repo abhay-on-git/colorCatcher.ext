@@ -108,6 +108,7 @@ h2 > span {
 .scrapedDivChild {
   width: 25px;
   height: 25px;
+  cursor: pointer;
   border-radius: 3px;
   border: 0.5px solid rgb(107, 107, 107);
 }

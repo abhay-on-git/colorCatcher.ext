@@ -61,7 +61,7 @@ scrapeColorBtn.addEventListener('click', async () => {
   } else {
     // Scrape colors and display them
     const colors = await scrapeAllColors();
-    console.log(colors);
+    // console.log(colors);
     
     if (colors.length !== 0) {
       for (let color of colors) {
@@ -69,11 +69,28 @@ scrapeColorBtn.addEventListener('click', async () => {
         scrapedDivChild.className = 'scrapedDivChild';
         scrapedDivChild.style.backgroundColor = color;
         scrapedColorsDiv.appendChild(scrapedDivChild);
+        scrapedDivChild.addEventListener('click', () => {
+          const hexColor = rgbToHex(color)
+          copyScrapedDivChildColorCode(hexColor)
+          console.log(hexColor);
+        });
       }
     }
     isScraped = true;
   }
 });
+
+function rgbToHex(rgb) {
+  const result = rgb.match(/\d+/g).map(Number);
+  return `#${result.map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase()}`;
+}
+
+
+const copyScrapedDivChildColorCode = (color) => {
+  navigator.clipboard.writeText(color);
+  scrapeColorBtn.innerText = "Copied";
+  setTimeout(() => scrapeColorBtn.innerText = "Scrape on", 1600);
+}
 
 
 
